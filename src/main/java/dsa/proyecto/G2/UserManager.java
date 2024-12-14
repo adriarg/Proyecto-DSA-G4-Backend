@@ -11,5 +11,8 @@ public interface UserManager {
     public User addUsuario(String id,String nombre,String contraseña);
     public User addUsuario(String nombre, String contraseña);
     List<User> getUsuarios();
+
+    User updateUser(User u);
+
     boolean removeUsuario(String id);
 }

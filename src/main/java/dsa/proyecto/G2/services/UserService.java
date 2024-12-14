@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+import javax.sound.midi.Track;
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
@@ -95,4 +96,19 @@ public class UserService {
             return Response.status(401).entity("Credenciales incorrectas").build();
         }
     }
+
+    @PUT
+    @ApiOperation(value= "update a User", notes = "asdasd")
+    @ApiResponses(value = {
+           @ApiResponse(code=201,message = "Successful"),
+           @ApiResponse(code=404, message = "User not found")
+    })
+    @Path("/")
+    public Response updateUser(User user){
+        User u = this.userManager.updateUser(user);
+        if(u == null) return Response.status(404).build();
+        return Response.status(201).build();
+    }
+
+
 }
