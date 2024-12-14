@@ -2,17 +2,15 @@ package dsa.proyecto.G2;
 
 import dsa.proyecto.G2.models.User;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.ArrayList;
 
 public class UserManagerImpl implements UserManager {
     private static UserManagerImpl instance;
-    private Map<String, User> usuarios;
+    private List<User> usuarios;
 
     private UserManagerImpl() {
-        this.usuarios = new HashMap<>();
+        this.usuarios = new LinkedList<>();
     }
 
     public static UserManagerImpl getInstance() {
@@ -24,24 +22,36 @@ public class UserManagerImpl implements UserManager {
 
     @Override
     public User getUsuarioPorId(String id) {
-        return usuarios.get(id);
+        for (User usuario : usuarios) {
+            if (usuario.getId().equals(id)) {
+                return usuario;
+            }
+        }
+        return null;
     }
 
     @Override
     public User getUsuarioPorNombre(String nombre) {
-        return usuarios.values().stream()
-                .filter(u -> u.getNombre().equals(nombre))
-                .findFirst()
-                .orElse(null);
+        for (User usuario : usuarios) {
+            if (usuario.getNombre().equals(nombre)) {
+                return usuario;
+            }
+        }
+        return null;
     }
 
     @Override
     public void addUsuario(User usuario) {
-        usuarios.put(usuario.getId(), usuario);
+        usuarios.add(usuario);
     }
 
-    // Nuevo método para obtener todos los usuarios
+    @Override
     public List<User> getUsuarios() {
-        return new ArrayList<>(usuarios.values());
+        return new LinkedList<>(usuarios);
+    }
+
+    @Override
+    public boolean removeUsuario(String id) {
+        return usuarios.removeIf(usuario -> usuario.getId().equals(id));
     }
 }
