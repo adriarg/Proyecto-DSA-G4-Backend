@@ -107,7 +107,7 @@ public class UserService {
     public Response updateUser(User user){
         User u = this.userManager.updateUser(user);
         if(u == null) return Response.status(404).build();
-        return Response.status(201).build();
+        return Response.status(201).entity(u).build();
     }
 
 

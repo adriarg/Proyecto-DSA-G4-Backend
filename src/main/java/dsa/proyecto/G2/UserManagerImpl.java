@@ -63,7 +63,7 @@ public class UserManagerImpl implements UserManager {
 
     @Override
     public User updateUser(User u){
-        User u1 = this.getUsuarioPorNombre(u.getNombre());
+        User u1 = this.getUsuarioPorId(u.getId());
         if(u!=null){
             u1.setNombre(u.getNombre());
             u1.setContraseña(u.getContraseña());
