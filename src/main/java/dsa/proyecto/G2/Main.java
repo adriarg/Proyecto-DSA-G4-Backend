@@ -38,7 +38,7 @@
             beanConfig.setHost("localhost:8080");
             beanConfig.setBasePath("/dsaApp");
             beanConfig.setContact("support@example.com");
-            beanConfig.setDescription("REST API for Tracks Manager");
+            beanConfig.setDescription("REST API for Juego Manager");
             beanConfig.setLicenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html");
             beanConfig.setResourcePackage("dsa.proyecto.G2.services");
             beanConfig.setTermsOfServiceUrl("http://www.example.com/resources/eula");
