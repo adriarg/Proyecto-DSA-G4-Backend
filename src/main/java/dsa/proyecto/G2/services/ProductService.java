@@ -3,14 +3,17 @@ package dsa.proyecto.G2.services;
 import dsa.proyecto.G2.ProductManager;
 import dsa.proyecto.G2.ProductManagerImpl;
 import dsa.proyecto.G2.models.Product;
+import dsa.proyecto.G2.models.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Api(value = "/productos", description = "Endpoint to Product Service")
 @Path("/productos")
@@ -26,6 +29,17 @@ public class ProductService {
             this.productManager.addProduct(new Product("1", "Producto1", 10.0));
             this.productManager.addProduct(new Product("2", "Producto2", 25.0));
         }
+    }
+    @GET
+    @ApiOperation(value = "Obtener todos los productos", notes = "Devuelve una lista de todos los productos")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful", response = User.class, responseContainer = "List"),
+    })
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProducts() {
+        List<Product> productos = this.productManager.getAllProducts();
+        GenericEntity<List<Product>> entity = new GenericEntity<List<Product>>(productos) {};
+        return Response.status(200).entity(entity).build();
     }
 
     @POST

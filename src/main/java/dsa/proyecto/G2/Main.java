@@ -1,71 +1,34 @@
+package dsa.proyecto.G2;
 
-    package dsa.proyecto.G2;
+import dsa.proyecto.G2.orm.dao.DAO;
+import dsa.proyecto.G2.models.User;
+import dsa.proyecto.G2.util.ConnectionManager;
 
-    import io.swagger.jaxrs.config.BeanConfig;
-    import io.swagger.jersey.listing.ApiListingResourceJSON;
-    import org.glassfish.grizzly.http.server.HttpServer;
-    import org.glassfish.grizzly.http.server.StaticHttpHandler;
-    import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-    import org.glassfish.jersey.server.ResourceConfig;
+public class Main {
 
-    import java.io.IOException;
-    import java.net.URI;
+    public static void main(String[] args) {
+        // Probar conexión a la base de datos
+        ConnectionManager.testConnection();
 
-    /**
-     * Main class.
-     *
-     */
-    public class Main {
-        // Base URI the Grizzly HTTP server will listen on
-        public static final String BASE_URI = "http://localhost:8080/dsaApp/";
+        // Insertar un usuario de prueba
+        testInsertUser();
 
-        /**
-         * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
-         * @return Grizzly HTTP server.
-         */
-        public static HttpServer startServer() {
-            // create a resource config that scans for JAX-RS resources and providers
-            // in edu.upc.dsa package
-            final ResourceConfig rc = new ResourceConfig().packages("dsa.proyecto.G2.services");
+        // Aquí inicias tu servidor normalmente (si lo tienes configurado)
+        // Por ejemplo:
+        // HttpServer server = startServer();
+        // System.out.println("Server started at " + BASE_URI);
+    }
 
-            rc.register(io.swagger.jaxrs.listing.ApiListingResource.class);
-            rc.register(io.swagger.jaxrs.listing.SwaggerSerializers.class);
-
-            BeanConfig beanConfig = new BeanConfig();
-
-            beanConfig.setHost("localhost:8080");
-            beanConfig.setBasePath("/dsaApp");
-            beanConfig.setContact("support@example.com");
-            beanConfig.setDescription("REST API for Juego Manager");
-            beanConfig.setLicenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html");
-            beanConfig.setResourcePackage("dsa.proyecto.G2.services");
-            beanConfig.setTermsOfServiceUrl("http://www.example.com/resources/eula");
-            beanConfig.setTitle("REST API");
-            beanConfig.setVersion("1.0.0");
-            beanConfig.setScan(true);
-
-            // create and start a new instance of grizzly http server
-            // exposing the Jersey application at BASE_URI
-            return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
-        }
-
-
-        /**
-         * Main method.
-         * @param args
-         * @throws IOException
-         */
-        public static void main(String[] args) throws IOException {
-            final HttpServer server = startServer();
-
-            StaticHttpHandler staticHttpHandler = new StaticHttpHandler("./public/");
-            server.getServerConfiguration().addHttpHandler(staticHttpHandler, "/");
-
-
-            System.out.println(String.format("Jersey app started with WADL available at "
-                    + "%sapplication.wadl\nHit enter to stop it...", BASE_URI));
-
-            System.in.read();
-            server.stop();
+    private static void testInsertUser() {
+        try {
+            DAO<User> userDAO = new DAO<>(User.class);
+            System.out.println("Probando inserción de usuario de prueba...");
+            String query = "INSERT INTO users (nombre, contraseña) VALUES ('test_user', 'test_password')";
+            ConnectionManager.getConnection().createStatement().execute(query);
+            System.out.println("Usuario de prueba insertado correctamente");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error al insertar el usuario de prueba");
         }
     }
+}

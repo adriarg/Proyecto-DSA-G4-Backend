@@ -4,10 +4,12 @@ import dsa.proyecto.G2.models.User;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class UserManagerImpl implements UserManager {
     private static UserManagerImpl instance;
     private List<User> usuarios;
+    final static Logger logger = Logger.getLogger(String.valueOf(UserManagerImpl.class));
 
     private UserManagerImpl() {
         this.usuarios = new LinkedList<>();
@@ -41,13 +43,34 @@ public class UserManagerImpl implements UserManager {
     }
 
     @Override
-    public void addUsuario(User usuario) {
+    public User addUsuario(User usuario) {
         usuarios.add(usuario);
+
+        return usuario;
+    }
+
+    public User addUsuario(String id,String nombre,String contraseña){
+        return this.addUsuario(new User(id, nombre,contraseña));
+    }
+    public User addUsuario(String nombre, String contraseña){
+        return this.addUsuario(null,nombre,contraseña);
     }
 
     @Override
     public List<User> getUsuarios() {
         return new LinkedList<>(usuarios);
+    }
+
+    @Override
+    public User updateUser(User u){
+        User u1 = this.getUsuarioPorId(u.getId());
+        if(u!=null){
+            u1.setNombre(u.getNombre());
+            u1.setContraseña(u.getContraseña());
+        }else {
+            logger.warning("not found"+u);
+        }
+        return u1;
     }
 
     @Override
