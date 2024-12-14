@@ -90,7 +90,7 @@ public class UserService {
         // Verifica si el usuario existe y si la contraseña coincide
         if (user != null && user.getContraseña().equals(credentials.getContraseña())) {
             // Si la autenticación es exitosa
-            return Response.status(200).build();
+            return Response.status(200).entity(user).build();
         } else {
             // Si las credenciales son incorrectas
             return Response.status(401).entity("Credenciales incorrectas").build();
