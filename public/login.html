@@ -138,6 +138,8 @@
                     const user = await response.json();
                     if (user.contraseña === password) {
                         alert('Login successful!');
+                        // Redirección a tienda.html
+                        window.location.href = 'tienda.html';
                     } else {
                         errorMessage.textContent = 'Invalid username or password';
                     }
@@ -183,5 +185,6 @@
         }
     });
 </script>
+
 </body>
 </html>

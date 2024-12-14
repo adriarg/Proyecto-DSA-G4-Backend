@@ -1,6 +1,4 @@
-    // Control 1 DSA
-    //A fecha de 11/11/2024
-    // David Lamas Martínez
+
     package dsa.proyecto.G2;
 
     import io.swagger.jaxrs.config.BeanConfig;

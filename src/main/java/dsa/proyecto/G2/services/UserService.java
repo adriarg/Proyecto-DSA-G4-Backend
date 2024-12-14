@@ -25,9 +25,9 @@ public class UserService {
 
         // Datos de ejemplo
         if (userManager.getUsuarioPorNombre("Alice") == null) {
-            this.userManager.addUsuario(new User("1", "Alice", "password123"));
-            this.userManager.addUsuario(new User("2", "Bob", "password456"));
-            this.userManager.addUsuario(new User("3", "Charlie", "password789"));
+            this.userManager.addUsuario(new User("1", "Alice", "123"));
+            this.userManager.addUsuario(new User("2", "Bob", "456"));
+            this.userManager.addUsuario(new User("3", "Charlie", "789"));
         }
     }
 
@@ -71,5 +71,28 @@ public class UserService {
         }
         this.userManager.addUsuario(usuario);
         return Response.status(201).entity(usuario).build();
+    }
+
+    @POST
+    @Path("/login")
+    @ApiOperation(value = "Iniciar sesión", notes = "Valida las credenciales del usuario")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Login exitoso"),
+            @ApiResponse(code = 401, message = "Credenciales incorrectas")
+    })
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response login(User credentials) {
+        // Busca el usuario por nombre
+        User user = this.userManager.getUsuarioPorNombre(credentials.getNombre());
+
+        // Verifica si el usuario existe y si la contraseña coincide
+        if (user != null && user.getContraseña().equals(credentials.getContraseña())) {
+            // Si la autenticación es exitosa
+            return Response.status(200).build();
+        } else {
+            // Si las credenciales son incorrectas
+            return Response.status(401).entity("Credenciales incorrectas").build();
+        }
     }
 }
