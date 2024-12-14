@@ -41,8 +41,16 @@ public class UserManagerImpl implements UserManager {
     }
 
     @Override
-    public void addUsuario(User usuario) {
+    public User addUsuario(User usuario) {
         usuarios.add(usuario);
+        return usuario;
+    }
+
+    public User addUsuario(String id,String nombre,String contraseña){
+        return this.addUsuario(new User(id, nombre,contraseña));
+    }
+    public User addUsuario(String nombre, String contraseña){
+        return this.addUsuario(null,nombre,contraseña);
     }
 
     @Override

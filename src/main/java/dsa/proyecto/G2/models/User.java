@@ -1,16 +1,27 @@
 package dsa.proyecto.G2.models;
 
+import dsa.proyecto.G2.util.RandomUtils;
+
 public class User {
     private String id;
     private String nombre;
     private String contraseña;
 
+    public User () {
+        this.setId(RandomUtils.getId());
+    }
+
+    public User(String nombre, String contraseña) {
+        this(null,nombre,contraseña);
+    }
+
     public User(String id, String nombre, String contraseña) {
-        this.id = id;
+        this();
+        if(id!=null) this.setId(id);
         this.nombre = nombre;
         this.contraseña = contraseña;
     }
-    public User () {}
+
 
     // Getters y Setters
     public String getId() { return id; }

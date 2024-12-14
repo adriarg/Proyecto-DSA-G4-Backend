@@ -7,7 +7,9 @@ import java.util.List;
 public interface UserManager {
     User getUsuarioPorId(String id);
     User getUsuarioPorNombre(String nombre);
-    void addUsuario(User usuario);
+    User addUsuario(User usuario);
+    public User addUsuario(String id,String nombre,String contraseña);
+    public User addUsuario(String nombre, String contraseña);
     List<User> getUsuarios();
     boolean removeUsuario(String id);
 }
