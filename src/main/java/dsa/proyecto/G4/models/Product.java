@@ -1,4 +1,4 @@
-package dsa.proyecto.G2.models;
+package dsa.proyecto.G4.models;
 
 public class Product {
     private String id;

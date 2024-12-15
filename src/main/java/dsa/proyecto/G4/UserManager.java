@@ -1,6 +1,6 @@
-package dsa.proyecto.G2;
+package dsa.proyecto.G4;
 
-import dsa.proyecto.G2.models.User;
+import dsa.proyecto.G4.models.User;
 
 import java.util.List;
 
@@ -12,7 +12,9 @@ public interface UserManager {
     public User addUsuario(String nombre, String contraseña);
     List<User> getUsuarios();
 
-    User updateUser(User u);
+    User updateUser(String id,User u);
 
     boolean removeUsuario(String id);
+
+    int countUsers();
 }

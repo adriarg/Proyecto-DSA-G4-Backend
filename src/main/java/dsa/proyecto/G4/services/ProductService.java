@@ -1,9 +1,9 @@
-package dsa.proyecto.G2.services;
+package dsa.proyecto.G4.services;
 
-import dsa.proyecto.G2.ProductManager;
-import dsa.proyecto.G2.ProductManagerImpl;
-import dsa.proyecto.G2.models.Product;
-import dsa.proyecto.G2.models.User;
+import dsa.proyecto.G4.ProductManager;
+import dsa.proyecto.G4.ProductManagerImpl;
+import dsa.proyecto.G4.models.Product;
+import dsa.proyecto.G4.models.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

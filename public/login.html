@@ -133,16 +133,16 @@
         if (isLogin) {
             // Intento de inicio de sesión
             try {
-                const response = await fetch(`http://localhost:8080/dsaApp/usuarios/login`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ nombre: username, contraseña: password })
-                });
+                const response = await fetch(`http://localhost:8080/dsaApp/usuarios/${username}`);
                 if (response.ok) {
                     const user = await response.json();
-                    alert(`Login successful! Welcome, ${user.nombre}`);
+                    if (user.contraseña === password) {
+                        alert('Login successful!');
+                        // Redirección a tienda.html
+                        window.location.href = 'tienda.html';
+                    } else {
+                        errorMessage.textContent = 'Invalid username or password';
+                    }
                 } else {
                     errorMessage.textContent = 'Invalid username or password';
                 }
@@ -175,7 +175,7 @@
                     submitButton.textContent = 'Login';
                     toggleLink.textContent = "Don't have an account? Register";
                     authForm.reset();
-                } else {
+                } else if (response.status === 500) {
                     errorMessage.textContent = 'Username already exists or validation error';
                 }
             } catch (error) {
@@ -185,5 +185,6 @@
         }
     });
 </script>
+
 </body>
 </html>

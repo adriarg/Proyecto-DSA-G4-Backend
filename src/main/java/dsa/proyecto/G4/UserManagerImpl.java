@@ -1,6 +1,6 @@
-package dsa.proyecto.G2;
+package dsa.proyecto.G4;
 
-import dsa.proyecto.G2.models.User;
+import dsa.proyecto.G4.models.User;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -62,11 +62,14 @@ public class UserManagerImpl implements UserManager {
     }
 
     @Override
-    public User updateUser(User u){
-        User u1 = this.getUsuarioPorId(u.getId());
+    public User updateUser(String id,User u){
+        User u1 = this.getUsuarioPorId(id);
         if(u!=null){
+           removeUsuario(id);
             u1.setNombre(u.getNombre());
             u1.setContraseña(u.getContraseña());
+            addUsuario(u1);
+
         }else {
             logger.warning("not found"+u);
         }
@@ -76,5 +79,10 @@ public class UserManagerImpl implements UserManager {
     @Override
     public boolean removeUsuario(String id) {
         return usuarios.removeIf(usuario -> usuario.getId().equals(id));
+    }
+
+    @Override
+    public int countUsers(){
+        return usuarios.size();
     }
 }

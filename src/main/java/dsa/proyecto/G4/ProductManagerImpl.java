@@ -1,6 +1,6 @@
-package dsa.proyecto.G2;
+package dsa.proyecto.G4;
 
-import dsa.proyecto.G2.models.Product;
+import dsa.proyecto.G4.models.Product;
 
 import java.util.LinkedList;
 import java.util.List;

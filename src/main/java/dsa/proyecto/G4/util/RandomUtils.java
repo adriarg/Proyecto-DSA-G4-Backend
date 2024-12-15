@@ -1,4 +1,4 @@
-package dsa.proyecto.G2.util;
+package dsa.proyecto.G4.util;
 
 import net.moznion.random.string.RandomStringGenerator;
 
